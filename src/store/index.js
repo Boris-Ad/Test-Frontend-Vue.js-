@@ -1,7 +1,13 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
+  state() {
+    return{
+      storageInputText:null,
+      inputDisabled:false,
+      inputDanger:false,
+      total: 260000,
+    }
   },
   mutations: {
   },
