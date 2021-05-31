@@ -4,7 +4,8 @@
       <div @click="$router.push({ name: 'Home' })" class="card-close"></div>
       <h3 class="card-title">Налоговый вычет</h3>
       <p class="card-text">
-        Используйте налоговый вычет чтобы погасить ипотеку досрочно. <br />
+        Используйте налоговый вычет чтобы погасить ипотеку досрочно.
+        <br class="breakpoints-one" />
         Размер налогового вычета составляет не более 13% от своего официального
         годового дохода.
       </p>
@@ -20,10 +21,12 @@
           </div>
         </transition>
       </div>
-      <div class="card-group-item">
-        <p class="card-group-item__text">Что уменьшаем?</p>
-        <button class="button card-group-item__red-button">Платёж</button>
-        <button class="button card-group-item__grey-button">Срок</button>
+      <div class="card-group">
+        <p class="card-group__text">Что уменьшаем?</p>
+        <div class="card-group__button-group">
+          <button class="button payment-button">Платёж</button>
+          <button class="button time-button">Срок</button>
+        </div>
       </div>
       <button @click="clear" class="button card-add-button">Добавить</button>
     </div>
@@ -46,14 +49,11 @@ export default {
     const payments = ref([]);
     const mounthlySalary = ref(0);
 
-   
-
     if (store.state.storageInputText) {
       inputText.value = store.state.storageInputText;
     }
 
     function makeCalc() {
-      
       if (inputText.value) {
         store.state.inputDisabled = true;
         mounthlySalary.value = getNumber(inputText.value);
@@ -83,15 +83,28 @@ export default {
   padding-top: 120px;
   padding-bottom: 60px;
   background: $grey-background;
+
+  @media (max-width: 576px) {
+   padding: 0;
+  }
+
 }
 .card-close {
-  width: 40px;
-  height: 40px;
   position: absolute;
-  top: 16px;
-  right: 16px;
-  background-image: url("../assets/images/jam_close.svg");
+  width: 18px;
+  height: 18px;
+  top: 27px;
+  right: 27px;
+  background-image: url("../assets/images/close_big.svg");
   cursor: pointer;
+
+  @media (max-width: 576px) {
+    width: 12px;
+    height: 12px;
+    top: 22px;
+    right: 22px;
+    background-image: url("../assets/images/close_small.svg");
+  }
 }
 .container__card {
   margin: 0px auto;
@@ -102,23 +115,49 @@ export default {
   box-sizing: border-box;
   position: relative;
 
+  @media (max-width: 768px) {
+    max-width: 453px;
+  }
+  @media (max-width: 576px) {
+    max-width: 100%;
+    border-radius: 0px;
+    padding: 32px 16px;
+    min-height: 100vh;
+  }
+
   .card-title {
     margin: 0;
     padding: 0;
     font-weight: 500;
     font-size: 28px;
     line-height: 40px;
+    @media (max-width: 576px) {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 24px;
+    }
   }
   .card-text {
-    color: #808080;
+    color: $text-grey;
     font-size: 14px;
     line-height: 24px;
-    margin: 1.4em 0px;
+    margin: 16px 0px 24px;
+
+    @media (max-width: 576px) {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .breakpoints-one {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
   .card-red-text {
     display: inline-block;
     margin-top: 0.5em;
-    margin-bottom: 1em;
+    margin-bottom: 0px;
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
@@ -136,7 +175,8 @@ export default {
     overflow: hidden;
   }
   .overlay-title {
-    margin-top: 0;
+    margin: 0;
+    margin-top: 16px;
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
@@ -152,24 +192,49 @@ export default {
     cursor: pointer;
     transition: background 0.35s ease-out;
   }
-  .card-group-item {
+  .card-group {
     display: flex;
     align-items: center;
+    margin-top: 24px;
+    @media (max-width: 576px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-    &__red-button {
+    &__text {
+      margin: 0;
+      margin-right: 2em;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+      color: $text-color;
+
+      @media (max-width: 768px) {
+        margin-right: 76px;
+      }
+      @media (max-width: 576px) {
+        margin-bottom: 30px;
+      }
+    }
+  }
+  .card-group__button-group {
+    .payment-button {
       padding: 6px 12px;
       font-size: 14px;
       line-height: 24px;
       border-radius: 50px;
-      margin-right: 1em;
+      margin-right: 16px;
       background: $red-background;
       color: #ffffff;
-
+      @media (max-width: 576px) {
+        margin-right: 8px;
+        margin-bottom: 112px;
+      }
       &:hover {
         background: $red-button-hover-click;
       }
     }
-    &__grey-button {
+    .time-button {
       padding: 6px 12px;
       font-size: 14px;
       line-height: 24px;
@@ -180,14 +245,6 @@ export default {
       &:hover {
         background: $tags-hover-background;
       }
-    }
-    &__text {
-      margin: 0;
-      margin-right: 2em;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 24px;
-      color: $text-color;
     }
   }
   .card-add-button {
@@ -202,6 +259,14 @@ export default {
     box-shadow: 0px 0px 24px rgba(234, 0, 41, 0.33);
     border-radius: 6px;
 
+    @media (max-width: 576px) {
+      position: absolute;
+      display: block;
+      width: calc(100% - 32px);
+      left: 16px;
+      right: 16px;
+      bottom: 32px;
+    }
     &:hover {
       background: $red-button-hover-click;
     }
@@ -214,12 +279,12 @@ export default {
     transition: margin-top 0.6s ease-out;
   }
   .checkboxes-leave-active {
-    transition: margin-top 1s ease-in;
+    transition: margin-top 0.5s ease-in;
   }
 
   .checkboxes-enter-from,
   .checkboxes-leave-to {
-    margin-top: -50%;
+    margin-top: -100%;
   }
 }
 </style>

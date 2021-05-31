@@ -1,0 +1,51 @@
+@import "../config";
+.checkbox {
+    padding: 16px 0px;
+    border-bottom: 1px solid $border-grey;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+  label {
+    vertical-align: middle;
+    color: $text-color;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    cursor: pointer;
+   
+  }
+  label:before {
+    content: " ";
+    margin-right: 11px;
+    border-radius: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: rgb(255, 255, 255);
+    border: 1px solid $border-grey;
+    box-sizing: border-box;
+    border-radius: 6px;
+    vertical-align: middle;
+  }
+  input:checked + label:before {
+    content: "";
+    border: none;
+    background: $red-background;
+    background-image: url("../assets/images/Vector.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+  }
+  input:hover + label:before {
+    border: 1px solid #000000;
+    display: inline-block;
+  }
+  input:disabled + label:before {
+    background: $button-background-disabled;
+    background-image: url("../assets/images/Vector.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+  }
+}

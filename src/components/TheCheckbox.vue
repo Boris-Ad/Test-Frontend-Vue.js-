@@ -7,11 +7,12 @@
         class="checkbox__input"
         type="checkbox"
         v-model="checkedNames"
+        
       />
       <label class="checkbox__label" :for="'payment' + inx">
         {{ check }}
-        <span class="span">{{inx === 1 ? 'во ' : 'в '}}</span>
-      <span class="span">{{inx + 1}}-{{endings(inx + 1)}} год</span> 
+        
+      <span class="span">{{inx === 1 ? ' во ' : ' в '}}{{inx + 1}}-{{endings(inx + 1)}} год</span> 
       </label>
     </div>
   </div>
@@ -60,11 +61,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/style/config.scss";
+@import "../assets/style/case/checkbox.scss";
 .card-popup__checkboxes {
   width: 100%;
 }
-.checkbox {
-  width: 100%;
-  border-bottom: 1px solid $border-grey;
+.span{
+  color: $text-grey;
+ 
 }
+
 </style>
